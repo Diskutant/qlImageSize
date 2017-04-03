@@ -630,7 +630,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = qlgenerator/rsrc/Info.plist;
-				INSTALL_PATH = /Library/QuickLook;
+				INSTALL_PATH = "~/Library/QuickLook";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -692,7 +692,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = qlgenerator/rsrc/Info.plist;
-				INSTALL_PATH = /Library/QuickLook;
+				INSTALL_PATH = "~/Library/QuickLook";
 				LD_RUNPATH_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

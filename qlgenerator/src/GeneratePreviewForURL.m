@@ -105,15 +105,21 @@ void CancelPreviewGeneration(__unused void* thisInterface, __unused QLPreviewReq
 
 CF_RETURNS_RETAINED static CFDictionaryRef _create_properties(CFURLRef url, const size_t size, const size_t width, const size_t height, const bool b)
 {
-	// Format file size
-	NSString* fmt = nil;
-	if (size > 1048576) // More than 1Mb
-		fmt = [[NSString alloc] initWithFormat:@"%.1fMb", (float)((float)size / 1048576.0f)];
-	else if ((size < 1048576) && (size > 1024)) // 1Kb - 1Mb
-		fmt = [[NSString alloc] initWithFormat:@"%.2fKb", (float)((float)size / 1024.0f)];
-	else // Less than 1Kb
-		fmt = [[NSString alloc] initWithFormat:@"%zub", size];
-
+    // Format file size (code taken from user doshidak) (algorithm inspired by Pascal Pfiffner's QuickLookCSV)
+    float bytes = size;
+    NSString* fmt = nil;
+    char* strFormat[] = {"%.0f", "%.0f", "%.1f", "%.2f", "%.2f", "%.2f"};
+    char* units[] = {"byte", "KB", "MB", "GB", "TB", "PB"};
+    int i = 0;
+    
+    while (bytes >= 1000){ // macOS uses 1000 instead of 1024 since 10.7 Lion!
+        bytes /= 1000;
+        i++;
+    }
+    
+    fmt = [[NSString alloc] initWithFormat:@"%s %s", strFormat[i], units[i]];
+    fmt = [NSString stringWithFormat:fmt, bytes];
+    
 	// Get filename
 	CFStringRef filename = CFURLCopyLastPathComponent(url);
 
